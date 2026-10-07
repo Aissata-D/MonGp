@@ -54,15 +54,15 @@ Les interfaces de repository sont définies dans `core`. Leurs implémentations 
 
 ## Avancement
 
-- [x] Maquettes Figma
-- [x] Entités et interfaces de repository (`core`)
-- [x] Cas d'usage (les derniers sont en cours)
-- [ ] Implémentations des repositories (Ktor Client)
-- [ ] ViewModels et écrans
-- [ ] Backend Ktor
-- [ ] Mode hors ligne avec synchronisation
-- [ ] Achats intégrés (RevenueCat)
-- [ ] Tableau de bord administrateur
+-  Maquettes Figma
+-  Entités et interfaces de repository (`core`)
+-  Cas d'usage (les derniers sont en cours)
+-  Implémentations des repositories (Ktor Client)
+-  ViewModels et écrans
+-  Backend Ktor
+-  Mode hors ligne avec synchronisation
+-  Achats intégrés (RevenueCat)
+-  Tableau de bord administrateur
 
 ## Lancer le projet
 
