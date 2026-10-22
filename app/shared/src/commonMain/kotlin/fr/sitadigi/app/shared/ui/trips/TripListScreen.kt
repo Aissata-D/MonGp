@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -19,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import fr.sitadigi.app.shared.ui.theme.plexMonoFamily
 import fr.sitadigi.app.shared.ui.toMessage
 import fr.sitadigi.core.domain.Trip
 
@@ -46,20 +48,21 @@ fun TripListScreen(viewModel: TripListViewModel) {
             }
         }
         is TripListUiState.Error -> {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = state.error.toMessage(),
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(horizontal = 32.dp)
-                )
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = state.error.toMessage(),
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(horizontal = 32.dp)
+                    )
+                }
                 Button(onClick = { viewModel.loadTrips() }) {
                     Text("Réessayer")
                 }
-            }
+
         }
     }
 }
@@ -68,9 +71,20 @@ fun TripListScreen(viewModel: TripListViewModel) {
 fun TripItem(trip: Trip) {
     Card(modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text("${trip.departureCity} → ${trip.arrivalCity}")
-            Text(trip.flightDateTime)
-            Text("${trip.flightNumber} · ${trip.numberOfKiloAvailable} kg · ${trip.priceForOneKilo} €/kg")
+            Text(
+                text = "${trip.departureCity} → ${trip.arrivalCity}",
+                style = MaterialTheme.typography.titleLarge
+            )
+            Text(
+                text = trip.flightDateTime,
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Text(
+                text = "${trip.flightNumber} · ${trip.numberOfKiloAvailable} kg · ${trip.priceForOneKilo} €/kg",
+                style = MaterialTheme.typography.bodyMedium.copy(fontFamily = plexMonoFamily())
+            )
         }
     }
 }
+

@@ -13,17 +13,20 @@ import fr.sitadigi.app.shared.data.createHttpClient
 import fr.sitadigi.core.usecase.trip.GetTripsUseCase
 
 import fr.sitadigi.app.shared.di.appModule
+import fr.sitadigi.app.shared.ui.theme.MonGpTheme
 import org.koin.compose.KoinApplication
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun TripListApp(baseUrl: String) {
-    MaterialTheme {
+    MonGpTheme {
         val viewModel = viewModel {
             val repository = KtorTripRepository(createHttpClient(), baseUrl)
             TripListViewModel(GetTripsUseCase(repository))
         }
-        Surface(modifier = Modifier.fillMaxSize()) {
+        Surface(modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background
+        ) {
             Box(modifier = Modifier.fillMaxSize().safeContentPadding()) {
                 TripListScreen(viewModel)
             }
