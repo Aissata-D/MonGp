@@ -4,9 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -14,6 +11,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import fr.sitadigi.app.shared.ui.components.MonGpButton
+import fr.sitadigi.app.shared.ui.components.MonGpTextField
 
 @Composable
 fun TripSearchBar(onSearch: (departureCity: String?, arrivalCity: String?) -> Unit) {
@@ -24,23 +23,28 @@ fun TripSearchBar(onSearch: (departureCity: String?, arrivalCity: String?) -> Un
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        OutlinedTextField(
+
+        MonGpTextField(
             value = departureCity,
             onValueChange = { departureCity = it },
-            label = { Text("Ville de départ") },
+            label = "Ville de départ",
             modifier = Modifier.fillMaxWidth()
         )
-        OutlinedTextField(
+        MonGpTextField(
             value = arrivalCity,
             onValueChange = { arrivalCity = it },
-            label = { Text("Ville d'arrivée") },
+            label = "Ville d'arrivée",
             modifier = Modifier.fillMaxWidth()
         )
-        Button(onClick = {
-            onSearch(departureCity.trim().ifBlank { null },
-                arrivalCity.trim().ifBlank { null })
-        }) {
-            Text("Rechercher")
-        }
+        MonGpButton(
+            text = "Rechercher",
+            onClick = {
+                onSearch(
+                    departureCity.trim().ifBlank { null },
+                    arrivalCity.trim().ifBlank { null }
+                )
+            },
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
