@@ -28,6 +28,14 @@ import fr.sitadigi.core.domain.Trip
 fun TripListScreen(viewModel: TripListViewModel) {
     val uiState by viewModel.uiState.collectAsState()
 
+    Column(modifier = Modifier.fillMaxSize()) {
+        TripSearchBar(onSearch = { departureCity, arrivalCity ->
+            viewModel.loadTrips(departureCity, arrivalCity)
+        })
+        Box(modifier = Modifier.weight(1f)) {
+
+
+
     when (val state = uiState) {
         is TripListUiState.Loading -> {
             Box(
@@ -37,13 +45,23 @@ fun TripListScreen(viewModel: TripListViewModel) {
                 CircularProgressIndicator()
             }
         }
+
         is TripListUiState.Success -> {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize().padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                items(state.trips) { trip ->
-                    TripItem(trip)
+            if (state.trips.isEmpty()) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text("Aucun voyage trouvé.")
+                }
+            } else {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize().padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    items(state.trips) { trip ->
+                        TripItem(trip)
+                    }
                 }
             }
         }
@@ -64,6 +82,8 @@ fun TripListScreen(viewModel: TripListViewModel) {
                 }
 
         }
+    }
+}
     }
 }
 
