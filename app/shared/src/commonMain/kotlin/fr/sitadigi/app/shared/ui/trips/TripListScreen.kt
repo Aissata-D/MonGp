@@ -25,7 +25,7 @@ import fr.sitadigi.app.shared.ui.toMessage
 import fr.sitadigi.core.domain.Trip
 
 @Composable
-fun TripListScreen(viewModel: TripListViewModel) {
+fun TripListScreen(viewModel: TripListViewModel, onTripClick: (String) -> Unit) {
     val uiState by viewModel.uiState.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -35,61 +35,64 @@ fun TripListScreen(viewModel: TripListViewModel) {
         Box(modifier = Modifier.weight(1f)) {
 
 
-
-    when (val state = uiState) {
-        is TripListUiState.Loading -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
-        }
-
-        is TripListUiState.Success -> {
-            if (state.trips.isEmpty()) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text("Aucun voyage trouvé.")
-                }
-            } else {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize().padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    items(state.trips) { trip ->
-                        TripItem(trip)
+            when (val state = uiState) {
+                is TripListUiState.Loading -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
                     }
                 }
-            }
-        }
-        is TripListUiState.Error -> {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = state.error.toMessage(),
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(horizontal = 32.dp)
-                    )
-                }
-                Button(onClick = { viewModel.loadTrips() }) {
-                    Text("Réessayer")
+
+                is TripListUiState.Success -> {
+                    if (state.trips.isEmpty()) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text("Aucun voyage trouvé.")
+                        }
+                    } else {
+                        LazyColumn(
+                            modifier = Modifier.fillMaxSize().padding(16.dp),
+                            verticalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            items(state.trips) { trip ->
+                                TripItem(trip = trip, onClick = { onTripClick(trip.id) })
+                            }
+                        }
+                    }
                 }
 
+                is TripListUiState.Error -> {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(
+                            16.dp,
+                            Alignment.CenterVertically
+                        ),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = state.error.toMessage(),
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(horizontal = 32.dp)
+                        )
+                    }
+                    Button(onClick = { viewModel.loadTrips() }) {
+                        Text("Réessayer")
+                    }
+
+                }
+            }
         }
-    }
-}
     }
 }
 
 @Composable
-fun TripItem(trip: Trip) {
-    Card(modifier = Modifier.fillMaxWidth()) {
+fun TripItem(trip: Trip, onClick: () -> Unit) {
+    Card(onClick = onClick, modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
                 text = "${trip.departureCity} → ${trip.arrivalCity}",
