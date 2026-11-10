@@ -201,4 +201,13 @@ class KtorTripRepositoryTest {
         }
     }
 
+    @Test
+    fun getTrips_turnsUnreadableResponseIntoUnknownError() = runTest {
+        val repository = repositoryRespondingWith(HttpStatusCode.OK, "{}")
+
+        assertFailsWith<AppError.UnknownError> {
+            repository.getTrips()
+        }
+    }
+
 }

@@ -4,6 +4,8 @@ import fr.sitadigi.core.domain.error.AppError
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.isSuccess
+import io.ktor.serialization.ContentConvertException
+import kotlinx.serialization.SerializationException
 import kotlin.coroutines.cancellation.CancellationException
 
 
@@ -30,6 +32,10 @@ suspend fun <T> safeCall(block: suspend () -> T): T {
         throw e
     } catch (e: CancellationException) {
         throw e
+    } catch (e: SerializationException) {
+        throw AppError.UnknownError(e.message)
+    } catch (e: ContentConvertException) {
+        throw AppError.UnknownError(e.message)
     } catch (e: Exception) {
         throw AppError.NetworkError(e.message)
     }
