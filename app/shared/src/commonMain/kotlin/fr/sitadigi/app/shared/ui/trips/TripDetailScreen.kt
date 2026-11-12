@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import fr.sitadigi.app.shared.ui.components.MonGpButton
+import fr.sitadigi.app.shared.ui.format.toFrenchDateTime
 import fr.sitadigi.app.shared.ui.theme.plexMonoFamily
 import fr.sitadigi.app.shared.ui.toMessage
 import fr.sitadigi.core.domain.Trip
@@ -76,7 +77,7 @@ private fun TripDetailContent(trip: Trip) {
             style = MaterialTheme.typography.headlineMedium
         )
         Text(
-            text = trip.flightDateTime,
+            text = trip.flightDateTime.toFrenchDateTime(),
             style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )

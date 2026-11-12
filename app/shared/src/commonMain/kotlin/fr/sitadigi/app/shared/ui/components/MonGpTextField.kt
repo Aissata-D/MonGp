@@ -18,6 +18,7 @@ fun MonGpTextField(
     error: String? = null,
     keyboardType: KeyboardType = KeyboardType.Text,
     minLines: Int = 1,
+    readOnly: Boolean = false
 ) {
     OutlinedTextField(
         value = value,
@@ -31,6 +32,7 @@ fun MonGpTextField(
         } else null,
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
         minLines = minLines,
+        readOnly = readOnly,
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant,
             focusedBorderColor = MaterialTheme.colorScheme.primary,

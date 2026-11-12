@@ -17,7 +17,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fr.sitadigi.app.shared.ui.components.MonGpButton
+import fr.sitadigi.app.shared.ui.components.MonGpDateField
 import fr.sitadigi.app.shared.ui.components.MonGpTextField
+import fr.sitadigi.app.shared.ui.components.MonGpTimeField
 import fr.sitadigi.app.shared.ui.theme.MonGpTheme
 
 
@@ -57,22 +59,22 @@ fun PublishTripScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                MonGpTextField(
+
+                MonGpDateField(
                     value = form.flightDate,
                     onValueChange = { onFormChange(form.copy(flightDate = it)) },
-                    label = "Date du vol (AAAA-MM-JJ)",
+                    label = "Date du vol",
                     error = errors.flightDate,
-                    modifier = Modifier.weight(1f),
-                    keyboardType = KeyboardType.Number
+                    modifier = Modifier.weight(1f)
                 )
-                MonGpTextField(
+                MonGpTimeField(
                     value = form.flightTime,
                     onValueChange = { onFormChange(form.copy(flightTime = it)) },
-                    label = "Heure du vol (HH:MM)",
+                    label = "Heure du vol",
                     error = errors.flightTime,
-                    modifier = Modifier.weight(1f),
-                    keyboardType = KeyboardType.Number
+                    modifier = Modifier.weight(1f)
                 )
+
             }
             MonGpTextField(
                 value = form.flightNumber,
@@ -122,7 +124,7 @@ fun PublishTripScreen(
 
 @Preview
 @Composable
-fun PublishTripScreenPreview() {
+fun PublishTripScreenPreview( showBackground: Boolean = true) {
     MonGpTheme {
         PublishTripScreen(
             form = TripFormState(),
