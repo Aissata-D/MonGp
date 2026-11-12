@@ -14,12 +14,14 @@ data object TripListRoute : Route
 
 @Serializable
 data class TripDetailRoute(val tripId: String) : Route
-
+@Serializable
+data object PublishTripRoute : Route
 val routeSavedStateConfiguration = SavedStateConfiguration {
     serializersModule = SerializersModule {
         polymorphic(NavKey::class) {
             subclass(TripListRoute::class, TripListRoute.serializer())
             subclass(TripDetailRoute::class, TripDetailRoute.serializer())
+            subclass(PublishTripRoute::class, PublishTripRoute.serializer())
         }
     }
 }

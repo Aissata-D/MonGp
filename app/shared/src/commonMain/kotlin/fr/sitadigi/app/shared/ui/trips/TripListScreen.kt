@@ -20,15 +20,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import fr.sitadigi.app.shared.ui.components.MonGpButton
 import fr.sitadigi.app.shared.ui.theme.plexMonoFamily
 import fr.sitadigi.app.shared.ui.toMessage
 import fr.sitadigi.core.domain.Trip
 
 @Composable
-fun TripListScreen(viewModel: TripListViewModel, onTripClick: (String) -> Unit) {
+fun TripListScreen(viewModel: TripListViewModel, onTripClick: (String) -> Unit, onPublishClick: () -> Unit) {
     val uiState by viewModel.uiState.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize()) {
+        MonGpButton(
+            text = "Publier un voyage",
+            onClick = onPublishClick,
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
+        )
         TripSearchBar(onSearch = { departureCity, arrivalCity ->
             viewModel.loadTrips(departureCity, arrivalCity)
         })

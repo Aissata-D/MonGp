@@ -6,6 +6,10 @@ import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entryProvider
@@ -13,9 +17,13 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import fr.sitadigi.app.shared.di.appModule
+import fr.sitadigi.app.shared.navigation.PublishTripRoute
 import fr.sitadigi.app.shared.navigation.TripDetailRoute
 import fr.sitadigi.app.shared.navigation.TripListRoute
 import fr.sitadigi.app.shared.navigation.routeSavedStateConfiguration
+import fr.sitadigi.app.shared.ui.publish.PublishTripScreen
+import fr.sitadigi.app.shared.ui.publish.TripFormErrors
+import fr.sitadigi.app.shared.ui.publish.TripFormState
 import fr.sitadigi.app.shared.ui.theme.MonGpTheme
 import org.koin.compose.KoinApplication
 import org.koin.compose.viewmodel.koinViewModel
@@ -44,7 +52,8 @@ fun TripListApp(baseUrl: String) {
                             entry<TripListRoute> {
                                 TripListScreen(
                                     viewModel = koinViewModel<TripListViewModel>(),
-                                    onTripClick = { tripId -> backStack.add(TripDetailRoute(tripId)) }
+                                    onTripClick = { tripId -> backStack.add(TripDetailRoute(tripId)) },
+                                    onPublishClick = { backStack.add(PublishTripRoute) }
                                 )
                             }
                             entry<TripDetailRoute> { route ->
@@ -52,6 +61,16 @@ fun TripListApp(baseUrl: String) {
                                     viewModel = koinViewModel<TripDetailViewModel>(
                                         parameters = { parametersOf(route.tripId) }
                                     ),
+                                    onBack = { backStack.removeAt(backStack.lastIndex) }
+                                )
+                            }
+                            entry<PublishTripRoute> {
+                                var form by remember { mutableStateOf(TripFormState()) }
+                                PublishTripScreen(
+                                    form = form,
+                                    errors = TripFormErrors(),
+                                    onFormChange = { form = it },
+                                    onSubmit = {},
                                     onBack = { backStack.removeAt(backStack.lastIndex) }
                                 )
                             }
