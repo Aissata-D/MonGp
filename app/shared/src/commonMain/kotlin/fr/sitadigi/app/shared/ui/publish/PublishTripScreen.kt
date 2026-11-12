@@ -127,7 +127,6 @@ fun PublishTripScreenPreview() {
         PublishTripScreen(
             form = TripFormState(),
             errors = TripFormErrors(),
-           // errors =  TripFormErrors(departureCity = "Indique la ville de départ.", kilos = "Indique un nombre de kilos supérieur à 0."),
             onFormChange = {},
             onSubmit = {},
             onBack = {},
