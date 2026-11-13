@@ -2,7 +2,7 @@ package fr.sitadigi.app.shared.ui.publish
 private val dateRegex = Regex("""\d{4}-\d{2}-\d{2}""")
 private val timeRegex = Regex("""\d{2}:\d{2}""")
 
-private fun String.toPositiveNumberOrNull(): Double? =
+internal fun String.toPositiveNumberOrNull(): Double? =
     replace(',', '.').toDoubleOrNull()?.takeIf { it > 0 }
 
 fun TripFormState.validate(): TripFormErrors = TripFormErrors(

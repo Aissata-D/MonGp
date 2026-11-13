@@ -27,6 +27,8 @@ import fr.sitadigi.app.shared.ui.theme.MonGpTheme
 fun PublishTripScreen(
     form: TripFormState,
     errors: TripFormErrors,
+    isSubmitting: Boolean,
+    submitError: String?,
     onFormChange: (TripFormState) -> Unit,
     onSubmit: () -> Unit,
     onBack: () -> Unit,
@@ -114,21 +116,31 @@ fun PublishTripScreen(
             )
 
             MonGpButton(
-                text = "Publier",
+                text = if (isSubmitting) "Publication…" else "Publier",
                 onClick = onSubmit,
+                enabled = !isSubmitting,
                 modifier = Modifier.fillMaxWidth()
             )
+            if (submitError != null) {
+                Text(
+                    text = submitError,
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
         }
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-fun PublishTripScreenPreview( showBackground: Boolean = true) {
+fun PublishTripScreenPreview() {
     MonGpTheme {
         PublishTripScreen(
             form = TripFormState(),
             errors = TripFormErrors(),
+            isSubmitting = false,
+            submitError = null,
             onFormChange = {},
             onSubmit = {},
             onBack = {},

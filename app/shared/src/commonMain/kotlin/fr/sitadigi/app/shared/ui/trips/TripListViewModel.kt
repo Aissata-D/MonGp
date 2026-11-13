@@ -15,6 +15,14 @@ class TripListViewModel(
 
     private val _uiState = MutableStateFlow<TripListUiState>(TripListUiState.Loading)
     val uiState: StateFlow<TripListUiState> = _uiState.asStateFlow()
+    private var lastRefreshVersion = 0
+
+    fun refreshIfNeeded(version: Int) {
+        if (version > lastRefreshVersion) {
+            lastRefreshVersion = version
+            loadTrips()
+        }
+    }
 
     init {
         loadTrips()
