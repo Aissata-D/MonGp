@@ -3,7 +3,6 @@ package fr.sitadigi.app.shared.ui.trips
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import fr.sitadigi.core.domain.error.AppError
-import fr.sitadigi.core.usecase.trip.GetTripByIdUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class TripDetailViewModel(
     private val tripId: String,
-    private val getTripById: GetTripByIdUseCase
+    private val getTripById: fr.sitadigi.core.domain.usecase.trip.GetTripByIdUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<TripDetailUiState>(TripDetailUiState.Loading)

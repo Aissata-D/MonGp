@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.dp
 import fr.sitadigi.app.shared.ui.components.MonGpButton
 import fr.sitadigi.app.shared.ui.format.toFrenchDateTime
 import fr.sitadigi.app.shared.ui.theme.plexMonoFamily
-import fr.sitadigi.app.shared.ui.toMessage
-import fr.sitadigi.core.domain.Trip
+import fr.sitadigi.app.shared.ui.error.toMessage
+import fr.sitadigi.core.domain.model.Trip
 
 @Composable
 fun TripDetailScreen(viewModel: TripDetailViewModel, onBack: () -> Unit) {

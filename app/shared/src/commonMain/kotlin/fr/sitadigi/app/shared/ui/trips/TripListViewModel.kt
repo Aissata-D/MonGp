@@ -3,14 +3,13 @@ package fr.sitadigi.app.shared.ui.trips
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import fr.sitadigi.core.domain.error.AppError
-import fr.sitadigi.core.usecase.trip.GetTripsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class TripListViewModel(
-    private val getTrips: GetTripsUseCase
+    private val getTrips: fr.sitadigi.core.domain.usecase.trip.GetTripsUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<TripListUiState>(TripListUiState.Loading)

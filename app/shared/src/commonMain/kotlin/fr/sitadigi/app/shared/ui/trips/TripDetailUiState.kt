@@ -1,6 +1,6 @@
 package fr.sitadigi.app.shared.ui.trips
 
-import fr.sitadigi.core.domain.Trip
+import fr.sitadigi.core.domain.model.Trip
 import fr.sitadigi.core.domain.error.AppError
 
 sealed interface TripDetailUiState {
