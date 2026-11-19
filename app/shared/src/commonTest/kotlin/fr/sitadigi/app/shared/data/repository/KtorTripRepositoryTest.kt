@@ -1,6 +1,6 @@
 package fr.sitadigi.app.shared.data.repository
 
-import fr.sitadigi.app.shared.data.repositotyIMPL.KtorTripRepository
+import fr.sitadigi.app.shared.data.repositoryIMPL.KtorTripRepository
 import fr.sitadigi.core.domain.error.AppError
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine

@@ -1,4 +1,4 @@
-package fr.sitadigi.app.shared.ui.trips
+package fr.sitadigi.app.shared
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,12 +27,16 @@ import fr.sitadigi.app.shared.ui.publish.PublishTripScreen
 import fr.sitadigi.app.shared.ui.publish.PublishTripViewModel
 import fr.sitadigi.app.shared.ui.theme.MonGpTheme
 import fr.sitadigi.app.shared.ui.error.toMessage
+import fr.sitadigi.app.shared.ui.trips.TripDetailScreen
+import fr.sitadigi.app.shared.ui.trips.TripDetailViewModel
+import fr.sitadigi.app.shared.ui.trips.TripListScreen
+import fr.sitadigi.app.shared.ui.trips.TripListViewModel
 import org.koin.compose.KoinApplication
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
 @Composable
-fun TripListApp(baseUrl: String) {
+fun MonGpApp(baseUrl: String) {
     KoinApplication(application = { modules(appModule(baseUrl)) }) {
         MonGpTheme {
             Surface(

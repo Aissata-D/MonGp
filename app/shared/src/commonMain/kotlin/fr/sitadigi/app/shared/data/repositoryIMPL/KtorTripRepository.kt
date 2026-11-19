@@ -1,4 +1,4 @@
-package fr.sitadigi.app.shared.data.repositotyIMPL
+package fr.sitadigi.app.shared.data.repositoryIMPL
 
 import fr.sitadigi.app.shared.data.remote.dto.TripRequest
 import fr.sitadigi.app.shared.data.remote.safeCall

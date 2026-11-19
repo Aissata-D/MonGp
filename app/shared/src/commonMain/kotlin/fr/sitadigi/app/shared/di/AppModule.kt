@@ -1,6 +1,6 @@
 package fr.sitadigi.app.shared.di
 
-import fr.sitadigi.app.shared.data.repositotyIMPL.KtorTripRepository
+import fr.sitadigi.app.shared.data.repositoryIMPL.KtorTripRepository
 import fr.sitadigi.app.shared.data.remote.createHttpClient
 import fr.sitadigi.app.shared.ui.publish.PublishTripViewModel
 import fr.sitadigi.app.shared.ui.trips.TripDetailViewModel

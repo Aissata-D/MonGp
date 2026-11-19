@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import fr.sitadigi.app.shared.ui.trips.TripListApp
+import fr.sitadigi.app.shared.MonGpApp
 
 
 class MainActivity : ComponentActivity() {
@@ -16,7 +16,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             // App()
-            TripListApp(baseUrl = "http://10.0.2.2:3000")
+            MonGpApp(baseUrl = "http://10.0.2.2:3000")
         }
     }
 }
