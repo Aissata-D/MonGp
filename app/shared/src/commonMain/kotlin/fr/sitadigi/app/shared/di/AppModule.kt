@@ -2,9 +2,11 @@ package fr.sitadigi.app.shared.di
 
 import fr.sitadigi.app.shared.data.KtorTripRepository
 import fr.sitadigi.app.shared.data.createHttpClient
+import fr.sitadigi.app.shared.ui.publish.PublishTripViewModel
 import fr.sitadigi.app.shared.ui.trips.TripDetailViewModel
 import fr.sitadigi.app.shared.ui.trips.TripListViewModel
 import fr.sitadigi.core.data.TripRepository
+import fr.sitadigi.core.usecase.trip.CreateTripUseCase
 import fr.sitadigi.core.usecase.trip.GetTripByIdUseCase
 import fr.sitadigi.core.usecase.trip.GetTripsUseCase
 import org.koin.core.module.dsl.viewModel
@@ -17,5 +19,7 @@ fun appModule(baseUrl: String) = module {
     factory { GetTripByIdUseCase(get()) }
     viewModel { TripListViewModel(get()) }
     viewModel { params -> TripDetailViewModel(params.get(), get()) }
+    factory { CreateTripUseCase(get()) }
+    viewModel { PublishTripViewModel(get()) }
 
 }
