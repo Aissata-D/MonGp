@@ -20,15 +20,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import fr.sitadigi.app.shared.presentation.ui.components.MonGpButton
 import fr.sitadigi.app.shared.presentation.ui.format.toFrenchDateTime
-import fr.sitadigi.app.shared.presentation.ui.theme.plexMonoFamily
 import fr.sitadigi.app.shared.presentation.ui.error.toMessage
-import fr.sitadigi.app.shared.presentation.ui.format.toFrenchDateTime
 import fr.sitadigi.core.domain.model.Trip
 
 @Composable
-fun TripListScreen(viewModel: fr.sitadigi.app.shared.presentation.ui.trips.TripListViewModel, onTripClick: (String) -> Unit, onPublishClick: () -> Unit) {
+fun TripListScreen(viewModel: TripListViewModel, onTripClick: (String) -> Unit, onPublishClick: () -> Unit) {
     val uiState by viewModel.uiState.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -37,14 +34,14 @@ fun TripListScreen(viewModel: fr.sitadigi.app.shared.presentation.ui.trips.TripL
             onClick = onPublishClick,
             modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
         )
-        fr.sitadigi.app.shared.presentation.ui.trips.TripSearchBar(onSearch = { departureCity, arrivalCity ->
+        TripSearchBar(onSearch = { departureCity, arrivalCity ->
             viewModel.loadTrips(departureCity, arrivalCity)
         })
         Box(modifier = Modifier.weight(1f)) {
 
 
             when (val state = uiState) {
-                is fr.sitadigi.app.shared.presentation.ui.trips.TripListUiState.Loading -> {
+                is TripListUiState.Loading -> {
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
@@ -53,7 +50,7 @@ fun TripListScreen(viewModel: fr.sitadigi.app.shared.presentation.ui.trips.TripL
                     }
                 }
 
-                is fr.sitadigi.app.shared.presentation.ui.trips.TripListUiState.Success -> {
+                is TripListUiState.Success -> {
                     if (state.trips.isEmpty()) {
                         Box(
                             modifier = Modifier.fillMaxSize(),
@@ -67,7 +64,7 @@ fun TripListScreen(viewModel: fr.sitadigi.app.shared.presentation.ui.trips.TripL
                             verticalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
                             items(state.trips) { trip ->
-                                fr.sitadigi.app.shared.presentation.ui.trips.TripItem(
+                                TripItem(
                                     trip = trip,
                                     onClick = { onTripClick(trip.id) })
                             }
@@ -75,7 +72,7 @@ fun TripListScreen(viewModel: fr.sitadigi.app.shared.presentation.ui.trips.TripL
                     }
                 }
 
-                is fr.sitadigi.app.shared.presentation.ui.trips.TripListUiState.Error -> {
+                is TripListUiState.Error -> {
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(

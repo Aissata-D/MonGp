@@ -13,9 +13,9 @@ class TripDetailViewModel(
     private val getTripById: fr.sitadigi.core.domain.usecase.trip.GetTripByIdUseCase
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<fr.sitadigi.app.shared.presentation.ui.trips.TripDetailUiState>(
-        fr.sitadigi.app.shared.presentation.ui.trips.TripDetailUiState.Loading)
-    val uiState: StateFlow<fr.sitadigi.app.shared.presentation.ui.trips.TripDetailUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<TripDetailUiState>(
+        TripDetailUiState.Loading)
+    val uiState: StateFlow<TripDetailUiState> = _uiState.asStateFlow()
 
     init {
         loadTrip()
@@ -23,11 +23,11 @@ class TripDetailViewModel(
 
     fun loadTrip() {
         viewModelScope.launch {
-            _uiState.value = fr.sitadigi.app.shared.presentation.ui.trips.TripDetailUiState.Loading
+            _uiState.value = TripDetailUiState.Loading
             _uiState.value = try {
-                fr.sitadigi.app.shared.presentation.ui.trips.TripDetailUiState.Success(getTripById(tripId))
+                TripDetailUiState.Success(getTripById(tripId))
             } catch (e: AppError) {
-                fr.sitadigi.app.shared.presentation.ui.trips.TripDetailUiState.Error(e)
+                TripDetailUiState.Error(e)
             }
         }
     }

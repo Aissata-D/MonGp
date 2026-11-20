@@ -36,8 +36,8 @@ fun plexMonoFamily(): FontFamily = FontFamily(
 
 @Composable
 fun monGpTypography(): Typography {
-    val sora = fr.sitadigi.app.shared.presentation.ui.theme.soraFamily()
-    val jakarta = fr.sitadigi.app.shared.presentation.ui.theme.jakartaFamily()
+    val sora = soraFamily()
+    val jakarta = jakartaFamily()
     return Typography(
         headlineMedium = TextStyle(fontFamily = sora, fontWeight = FontWeight.ExtraBold, fontSize = 28.sp),
         titleLarge = TextStyle(fontFamily = sora, fontWeight = FontWeight.Bold, fontSize = 18.sp),

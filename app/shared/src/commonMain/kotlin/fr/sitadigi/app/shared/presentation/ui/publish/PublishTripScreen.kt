@@ -16,20 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import fr.sitadigi.app.shared.presentation.ui.components.MonGpButton
-import fr.sitadigi.app.shared.presentation.ui.components.MonGpDateField
-import fr.sitadigi.app.shared.presentation.ui.components.MonGpTextField
-import fr.sitadigi.app.shared.presentation.ui.components.MonGpTimeField
-import fr.sitadigi.app.shared.presentation.ui.theme.MonGpTheme
-
 
 @Composable
 fun PublishTripScreen(
-    form: fr.sitadigi.app.shared.presentation.ui.publish.TripFormState,
-    errors: fr.sitadigi.app.shared.presentation.ui.publish.TripFormErrors,
+    form: TripFormState,
+    errors: TripFormErrors,
     isSubmitting: Boolean,
     submitError: String?,
-    onFormChange: (fr.sitadigi.app.shared.presentation.ui.publish.TripFormState) -> Unit,
+    onFormChange: (TripFormState) -> Unit,
     onSubmit: () -> Unit,
     onBack: () -> Unit,
 ) {
@@ -136,9 +130,9 @@ fun PublishTripScreen(
 @Composable
 fun PublishTripScreenPreview() {
     fr.sitadigi.app.shared.presentation.ui.theme.MonGpTheme {
-        fr.sitadigi.app.shared.presentation.ui.publish.PublishTripScreen(
-            form = fr.sitadigi.app.shared.presentation.ui.publish.TripFormState(),
-            errors = fr.sitadigi.app.shared.presentation.ui.publish.TripFormErrors(),
+        PublishTripScreen(
+            form = TripFormState(),
+            errors = TripFormErrors(),
             isSubmitting = false,
             submitError = null,
             onFormChange = {},

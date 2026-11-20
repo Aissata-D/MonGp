@@ -12,9 +12,9 @@ class TripListViewModel(
     private val getTrips: fr.sitadigi.core.domain.usecase.trip.GetTripsUseCase
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<fr.sitadigi.app.shared.presentation.ui.trips.TripListUiState>(
-        fr.sitadigi.app.shared.presentation.ui.trips.TripListUiState.Loading)
-    val uiState: StateFlow<fr.sitadigi.app.shared.presentation.ui.trips.TripListUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<TripListUiState>(
+        TripListUiState.Loading)
+    val uiState: StateFlow<TripListUiState> = _uiState.asStateFlow()
     private var lastRefreshVersion = 0
 
     fun refreshIfNeeded(version: Int) {
@@ -30,11 +30,11 @@ class TripListViewModel(
 
     fun loadTrips(departureCity: String? = null, arrivalCity: String? = null) {
         viewModelScope.launch {
-            _uiState.value = fr.sitadigi.app.shared.presentation.ui.trips.TripListUiState.Loading
+            _uiState.value = TripListUiState.Loading
             _uiState.value = try {
-                fr.sitadigi.app.shared.presentation.ui.trips.TripListUiState.Success(getTrips(departureCity, arrivalCity))
+                TripListUiState.Success(getTrips(departureCity, arrivalCity))
             } catch (e: AppError) {
-                fr.sitadigi.app.shared.presentation.ui.trips.TripListUiState.Error(e)
+                TripListUiState.Error(e)
             }
         }
     }

@@ -11,8 +11,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import fr.sitadigi.app.shared.presentation.ui.components.MonGpButton
-import fr.sitadigi.app.shared.presentation.ui.components.MonGpTextField
 
 @Composable
 fun TripSearchBar(onSearch: (departureCity: String?, arrivalCity: String?) -> Unit) {

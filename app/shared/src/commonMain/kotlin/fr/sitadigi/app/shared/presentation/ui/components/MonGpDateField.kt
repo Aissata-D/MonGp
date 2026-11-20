@@ -16,7 +16,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import fr.sitadigi.app.shared.presentation.ui.components.toUtcDate
 import fr.sitadigi.app.shared.presentation.ui.format.toFrenchDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn

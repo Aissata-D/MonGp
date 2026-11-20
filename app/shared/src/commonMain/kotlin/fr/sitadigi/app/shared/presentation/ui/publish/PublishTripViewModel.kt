@@ -15,10 +15,10 @@ class PublishTripViewModel(
     private val createTrip: fr.sitadigi.core.domain.usecase.trip.CreateTripUseCase
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(fr.sitadigi.app.shared.presentation.ui.publish.PublishTripUiState())
-    val uiState: StateFlow<fr.sitadigi.app.shared.presentation.ui.publish.PublishTripUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(PublishTripUiState())
+    val uiState: StateFlow<PublishTripUiState> = _uiState.asStateFlow()
 
-    fun onFormChange(form: fr.sitadigi.app.shared.presentation.ui.publish.TripFormState) {
+    fun onFormChange(form: TripFormState) {
         _uiState.update { it.copy(form = form) }
     }
 

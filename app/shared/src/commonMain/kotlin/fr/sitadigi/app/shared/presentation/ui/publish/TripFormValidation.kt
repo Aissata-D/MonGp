@@ -1,22 +1,20 @@
 package fr.sitadigi.app.shared.presentation.ui.publish
 
-import fr.sitadigi.app.shared.presentation.ui.publish.toPositiveNumberOrNull
-
 private val dateRegex = Regex("""\d{4}-\d{2}-\d{2}""")
 private val timeRegex = Regex("""\d{2}:\d{2}""")
 
 internal fun String.toPositiveNumberOrNull(): Double? =
     replace(',', '.').toDoubleOrNull()?.takeIf { it > 0 }
 
-fun fr.sitadigi.app.shared.presentation.ui.publish.TripFormState.validate(): fr.sitadigi.app.shared.presentation.ui.publish.TripFormErrors =
-    fr.sitadigi.app.shared.presentation.ui.publish.TripFormErrors(
+fun TripFormState.validate(): TripFormErrors =
+    TripFormErrors(
         departureCity = if (departureCity.isBlank()) "Indique la ville de départ." else null,
         arrivalCity = if (arrivalCity.isBlank()) "Indique la ville d'arrivée." else null,
-        flightDate = if (!fr.sitadigi.app.shared.presentation.ui.publish.dateRegex.matches(
+        flightDate = if (!dateRegex.matches(
                 flightDate.trim()
             )
         ) "Format attendu : AAAA-MM-JJ." else null,
-        flightTime = if (!fr.sitadigi.app.shared.presentation.ui.publish.timeRegex.matches(
+        flightTime = if (!timeRegex.matches(
                 flightTime.trim()
             )
         ) "Format attendu : HH:MM." else null,

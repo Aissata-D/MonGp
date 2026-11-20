@@ -25,11 +25,10 @@ import fr.sitadigi.app.shared.presentation.ui.components.MonGpButton
 import fr.sitadigi.app.shared.presentation.ui.format.toFrenchDateTime
 import fr.sitadigi.app.shared.presentation.ui.theme.plexMonoFamily
 import fr.sitadigi.app.shared.presentation.ui.error.toMessage
-import fr.sitadigi.app.shared.presentation.ui.format.toFrenchDateTime
 import fr.sitadigi.core.domain.model.Trip
 
 @Composable
-fun TripDetailScreen(viewModel: fr.sitadigi.app.shared.presentation.ui.trips.TripDetailViewModel, onBack: () -> Unit) {
+fun TripDetailScreen(viewModel: TripDetailViewModel, onBack: () -> Unit) {
     val uiState by viewModel.uiState.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
@@ -38,7 +37,7 @@ fun TripDetailScreen(viewModel: fr.sitadigi.app.shared.presentation.ui.trips.Tri
         }
 
         when (val state = uiState) {
-            is fr.sitadigi.app.shared.presentation.ui.trips.TripDetailUiState.Loading -> {
+            is TripDetailUiState.Loading -> {
                 Box(
                     modifier = Modifier.weight(1f).fillMaxWidth(),
                     contentAlignment = Alignment.Center
@@ -46,12 +45,12 @@ fun TripDetailScreen(viewModel: fr.sitadigi.app.shared.presentation.ui.trips.Tri
                     CircularProgressIndicator()
                 }
             }
-            is fr.sitadigi.app.shared.presentation.ui.trips.TripDetailUiState.Success -> {
-                fr.sitadigi.app.shared.presentation.ui.trips.TripDetailContent(
+            is TripDetailUiState.Success -> {
+                TripDetailContent(
                     state.trip
                 )
             }
-            is fr.sitadigi.app.shared.presentation.ui.trips.TripDetailUiState.Error -> {
+            is TripDetailUiState.Error -> {
                 Column(
                     modifier = Modifier.weight(1f).fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
@@ -62,7 +61,7 @@ fun TripDetailScreen(viewModel: fr.sitadigi.app.shared.presentation.ui.trips.Tri
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(horizontal = 32.dp)
                     )
-                    fr.sitadigi.app.shared.presentation.ui.components.MonGpButton(
+                    MonGpButton(
                         text = "Réessayer",
                         onClick = { viewModel.loadTrip() })
                 }
@@ -91,15 +90,15 @@ private fun TripDetailContent(trip: Trip) {
                 modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                fr.sitadigi.app.shared.presentation.ui.trips.DetailRow(
+                DetailRow(
                     label = "Vol",
                     value = trip.flightNumber
                 )
-                fr.sitadigi.app.shared.presentation.ui.trips.DetailRow(
+                DetailRow(
                     label = "Kilos disponibles",
                     value = "${trip.numberOfKiloAvailable} kg"
                 )
-                fr.sitadigi.app.shared.presentation.ui.trips.DetailRow(
+                DetailRow(
                     label = "Prix indicatif",
                     value = "${trip.priceForOneKilo} €/kg"
                 )
@@ -130,7 +129,7 @@ private fun DetailRow(label: String, value: String) {
         )
         Text(
             text = value,
-            style = MaterialTheme.typography.bodyMedium.copy(fontFamily = fr.sitadigi.app.shared.presentation.ui.theme.plexMonoFamily())
+            style = MaterialTheme.typography.bodyMedium.copy(fontFamily = plexMonoFamily())
         )
     }
 }
