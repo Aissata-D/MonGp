@@ -2,9 +2,8 @@ package fr.sitadigi.app.shared.presentation.ui.publish
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import fr.sitadigi.app.shared.presentation.ui.publish.toPositiveNumberOrNull
-import fr.sitadigi.app.shared.presentation.ui.publish.validate
 import fr.sitadigi.core.domain.error.AppError
+import fr.sitadigi.core.domain.usecase.trip.CreateTripUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,7 +11,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class PublishTripViewModel(
-    private val createTrip: fr.sitadigi.core.domain.usecase.trip.CreateTripUseCase
+    private val createTrip: CreateTripUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(PublishTripUiState())

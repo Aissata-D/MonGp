@@ -24,6 +24,9 @@ import fr.sitadigi.app.shared.navigation.TripDetailRoute
 import fr.sitadigi.app.shared.navigation.TripListRoute
 import fr.sitadigi.app.shared.navigation.routeSavedStateConfiguration
 import fr.sitadigi.app.shared.presentation.ui.error.toMessage
+import fr.sitadigi.app.shared.presentation.ui.publish.PublishTripViewModel
+import fr.sitadigi.app.shared.presentation.ui.trips.TripDetailViewModel
+import fr.sitadigi.app.shared.presentation.ui.trips.TripListViewModel
 import org.koin.compose.KoinApplication
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -52,7 +55,7 @@ fun MonGpApp(baseUrl: String) {
                         entryProvider = entryProvider {
                             entry<TripListRoute> {
                                 val listViewModel =
-                                    koinViewModel<fr.sitadigi.app.shared.presentation.ui.trips.TripListViewModel>()
+                                    koinViewModel<TripListViewModel>()
                                 LaunchedEffect(tripsVersion) {
                                     listViewModel.refreshIfNeeded(tripsVersion)
                                 }
@@ -64,7 +67,7 @@ fun MonGpApp(baseUrl: String) {
                             }
                             entry<TripDetailRoute> { route ->
                                 fr.sitadigi.app.shared.presentation.ui.trips.TripDetailScreen(
-                                    viewModel = koinViewModel<fr.sitadigi.app.shared.presentation.ui.trips.TripDetailViewModel>(
+                                    viewModel = koinViewModel<TripDetailViewModel>(
                                         parameters = { parametersOf(route.tripId) }
                                     ),
                                     onBack = { backStack.removeAt(backStack.lastIndex) }
@@ -72,7 +75,7 @@ fun MonGpApp(baseUrl: String) {
                             }
                             entry<PublishTripRoute> {
                                 val viewModel =
-                                    koinViewModel<fr.sitadigi.app.shared.presentation.ui.publish.PublishTripViewModel>()
+                                    koinViewModel<PublishTripViewModel>()
                                 val state by viewModel.uiState.collectAsState()
 
                                 LaunchedEffect(state.published) {
