@@ -23,29 +23,24 @@ import fr.sitadigi.app.shared.navigation.PublishTripRoute
 import fr.sitadigi.app.shared.navigation.TripDetailRoute
 import fr.sitadigi.app.shared.navigation.TripListRoute
 import fr.sitadigi.app.shared.navigation.routeSavedStateConfiguration
-import fr.sitadigi.app.shared.ui.publish.PublishTripScreen
-import fr.sitadigi.app.shared.ui.publish.PublishTripViewModel
-import fr.sitadigi.app.shared.ui.theme.MonGpTheme
-import fr.sitadigi.app.shared.ui.error.toMessage
-import fr.sitadigi.app.shared.ui.trips.TripDetailScreen
-import fr.sitadigi.app.shared.ui.trips.TripDetailViewModel
-import fr.sitadigi.app.shared.ui.trips.TripListScreen
-import fr.sitadigi.app.shared.ui.trips.TripListViewModel
+import fr.sitadigi.app.shared.presentation.ui.error.toMessage
 import org.koin.compose.KoinApplication
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
+import org.koin.dsl.koinConfiguration
 
 @Composable
 fun MonGpApp(baseUrl: String) {
-    KoinApplication(application = { modules(appModule(baseUrl)) }) {
-        MonGpTheme {
+    KoinApplication(configuration = koinConfiguration { modules(appModule(baseUrl)) }) {
+        fr.sitadigi.app.shared.presentation.ui.theme.MonGpTheme {
             Surface(
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background
             ) {
                 Box(modifier = Modifier.fillMaxSize().safeContentPadding()) {
                     var tripsVersion by remember { mutableIntStateOf(0) }
-                    val backStack = rememberNavBackStack(routeSavedStateConfiguration, TripListRoute)
+                    val backStack =
+                        rememberNavBackStack(routeSavedStateConfiguration, TripListRoute)
 
                     NavDisplay(
                         backStack = backStack,
@@ -56,26 +51,28 @@ fun MonGpApp(baseUrl: String) {
                         ),
                         entryProvider = entryProvider {
                             entry<TripListRoute> {
-                                val listViewModel = koinViewModel<TripListViewModel>()
+                                val listViewModel =
+                                    koinViewModel<fr.sitadigi.app.shared.presentation.ui.trips.TripListViewModel>()
                                 LaunchedEffect(tripsVersion) {
                                     listViewModel.refreshIfNeeded(tripsVersion)
                                 }
-                                TripListScreen(
+                                fr.sitadigi.app.shared.presentation.ui.trips.TripListScreen(
                                     viewModel = listViewModel,
                                     onTripClick = { tripId -> backStack.add(TripDetailRoute(tripId)) },
                                     onPublishClick = { backStack.add(PublishTripRoute) }
                                 )
                             }
                             entry<TripDetailRoute> { route ->
-                                TripDetailScreen(
-                                    viewModel = koinViewModel<TripDetailViewModel>(
+                                fr.sitadigi.app.shared.presentation.ui.trips.TripDetailScreen(
+                                    viewModel = koinViewModel<fr.sitadigi.app.shared.presentation.ui.trips.TripDetailViewModel>(
                                         parameters = { parametersOf(route.tripId) }
                                     ),
                                     onBack = { backStack.removeAt(backStack.lastIndex) }
                                 )
                             }
                             entry<PublishTripRoute> {
-                                val viewModel = koinViewModel<PublishTripViewModel>()
+                                val viewModel =
+                                    koinViewModel<fr.sitadigi.app.shared.presentation.ui.publish.PublishTripViewModel>()
                                 val state by viewModel.uiState.collectAsState()
 
                                 LaunchedEffect(state.published) {
@@ -85,7 +82,7 @@ fun MonGpApp(baseUrl: String) {
                                     }
                                 }
 
-                                PublishTripScreen(
+                                fr.sitadigi.app.shared.presentation.ui.publish.PublishTripScreen(
                                     form = state.form,
                                     errors = state.errors,
                                     isSubmitting = state.isSubmitting,
